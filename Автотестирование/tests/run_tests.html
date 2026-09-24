@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Автотесты — Заказ доставки</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .test-ui { padding: 20px; max-width: 800px; margin: 20px auto; }
+        .test-ui h1 { color: #333; }
+        .test-ui .test { padding: 8px 12px; margin: 4px 0; border-radius: 6px; }
+        .test-ui .pass { background: #d4edda; color: #155724; }
+        .test-ui .fail { background: #f8d7da; color: #721c24; }
+        .test-ui .summary { margin-top: 20px; padding: 15px; background: #e9ecef; border-radius: 8px; font-weight: bold; }
+        .test-ui #runBtn { padding: 12px 24px; font-size: 16px; cursor: pointer; background: #667eea; color: white; border: none; border-radius: 8px; }
+        .test-ui #runBtn:hover { background: #5568d3; }
+        .test-ui #runBtn:disabled { background: #ccc; cursor: not-allowed; }
+        #formForTests { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    </style>
+</head>
+<body>
+    <div id="formForTests">
+        <div class="container">
+            <form id="deliveryForm">
+                <div class="form-group">
+                    <label for="address">Адрес:</label>
+                    <input type="text" id="address" name="address">
+                </div>
+                <div class="form-group">
+                    <label for="time">Время:</label>
+                    <input type="text" id="time" name="time">
+                </div>
+                <div class="form-group">
+                    <label for="goods">Товары:</label>
+                    <input type="text" id="goods" name="goods">
+                </div>
+                <div class="form-group">
+                    <label for="sum">Сумма:</label>
+                    <input type="text" id="sum" name="sum">
+                </div>
+                <div class="form-group">
+                    <label for="comment">Комментарий:</label>
+                    <textarea id="comment" name="comment" rows="3"></textarea>
+                </div>
+                <div class="button-group">
+                    <button type="submit" id="okButton">Ок</button>
+                    <button type="button" id="cancelButton">Отмена</button>
+                </div>
+            </form>
+            <div id="message" class="message"></div>
+        </div>
+    </div>
+
+    <div class="test-ui">
+        <h1>Автотесты приложения «Заказ доставки»</h1>
+        <p>Нажмите кнопку для запуска 20 тестов. Node.js не требуется.</p>
+        <button id="runBtn" onclick="runAllTests()">Запустить тесты</button>
+        <div id="results"></div>
+        <div id="summary" class="summary"></div>
+    </div>
+
+    <script src="../app.js"></script>
+    <script>
+        const TESTS = [
+            { name: 'TC-01: Успешное оформление с корректными данными', data: ['ул. Ленина, д. 10, кв. 5', '14:30', 'Хлеб, Молоко', '1500', 'Позвонить'], expectSuccess: true },
+            { name: 'TC-02: Ошибка при пустом адресе', data: ['', '12:00', 'Товар', '500', ''], expectSuccess: false, expectText: 'Адрес доставки' },
+            { name: 'TC-06: Ошибка при пустом поле товаров', data: ['пр. Мира, 100', '18:00', '', '300', ''], expectSuccess: false, expectText: 'Товары' },
+            { name: 'TC-07: Ошибка при сумме меньше допустимой', data: ['ул. Советская, 5', '10:30', 'Вода', '50', ''], expectSuccess: false, expectText: 'Сумма заказа' },
+            { name: 'TC-09: Ошибка при нечисловой сумме', data: ['ул. Новая, 12', '11:00', 'Хлеб', 'пятьсот', ''], expectSuccess: false, expectText: 'Сумма заказа' },
+            { name: 'TC-12: Успешный заказ без комментария', data: ['ул. Парковая, 3, кв. 10', '19:00', 'Пицца, Напиток', '1200', ''], expectSuccess: true },
+            { name: 'TC-13: Очистка полей по кнопке Отмена', data: ['ул. Тест, 1', '12:00', 'Товар', '500', 'коммент'], expectSuccess: null, expectCancel: true },
+            { name: 'TC-15: Граничное значение суммы 100', data: ['ул. Мира, 1', '00:00', 'Товар', '100', ''], expectSuccess: true },
+            { name: 'TC-17: Граничное значение времени 23:59', data: ['пр. Победы, 50', '23:59', 'Ночной заказ', '500', ''], expectSuccess: true },
+            { name: 'TC-18: Адрес с пробелами в начале и конце', data: ['   ул. Тестовая, 15   ', '12:00', 'Товар', '300', ''], expectSuccess: true },
+            { name: 'Авто: Адрес из одних пробелов', data: ['     ', '12:00', 'Товар', '500', ''], expectSuccess: false, expectText: 'Адрес' },
+            { name: 'Авто: Отрицательная сумма', data: ['ул. Тест, 10', '14:00', 'Товар', '-100', ''], expectSuccess: false, expectText: 'Сумма' },
+            { name: 'Авто: Сумма равна нулю', data: ['ул. Нулевая, 1', '10:00', 'Товар', '0', ''], expectSuccess: false, expectText: 'Сумма' },
+            { name: 'Авто: Адрес ровно 5 символов', data: ['ул. 1', '12:00', 'Товар', '200', ''], expectSuccess: true },
+            { name: 'Авто: Время 24:00 (недопустимо)', data: ['ул. Время, 5', '24:00', 'Товар', '400', ''], expectSuccess: false, expectText: 'Время' },
+            { name: 'Авто: Сумма 100001 (выше максимума)', data: ['ул. Большая, 100', '16:00', 'Товар', '100001', ''], expectSuccess: false, expectText: 'Сумма' },
+            { name: 'Авто: БАГ - время 14:60 проходит', data: ['ул. Баговая, 1', '14:60', 'Товар', '500', ''], expectSuccess: true },
+            { name: 'Авто: БАГ - сумма 99 проходит', data: ['ул. Баговая, 2', '10:00', 'Товар', '99', ''], expectSuccess: true },
+            { name: 'Авто: Несколько товаров с пробелами', data: ['ул. Многотоварная, 7', '13:30', 'Товар1 , Товар2 , Товар3', '2000', ''], expectSuccess: true },
+            { name: 'Авто: Пустое поле времени', data: ['ул. Полная, 1', '', 'Товар', '450', ''], expectSuccess: false, expectText: 'Время' }
+        ];
+
+        function fillForm(address, timeVal, goods, sumVal, comment) {
+            ['address','time','goods','sum','comment'].forEach(function(id, i) {
+                var el = document.getElementById(id);
+                if (el) el.value = [address, timeVal, goods, sumVal, comment][i] || '';
+            });
+        }
+        function clickOk() { document.getElementById('okButton').click(); }
+        function clickCancel() { document.getElementById('cancelButton').click(); }
+        function getMessage() { var e = document.getElementById('message'); return e ? e.textContent : ''; }
+        function isSuccess() { var e = document.getElementById('message'); return e && e.className.indexOf('success') >= 0; }
+
+        function runTest(test) {
+            if (test.expectCancel) {
+                fillForm.apply(null, test.data);
+                clickCancel();
+                return !document.getElementById('address').value && !document.getElementById('time').value;
+            }
+            fillForm.apply(null, test.data);
+            clickOk();
+            var msg = getMessage(), success = isSuccess();
+            if (test.expectSuccess === true) return success && msg.indexOf('Успешно') >= 0;
+            if (test.expectSuccess === false) return !success && (!test.expectText || msg.indexOf(test.expectText) >= 0);
+            return true;
+        }
+
+        function runAllTests() {
+            var btn = document.getElementById('runBtn');
+            var resultsDiv = document.getElementById('results');
+            var summaryDiv = document.getElementById('summary');
+            btn.disabled = true;
+            resultsDiv.innerHTML = '';
+            summaryDiv.innerHTML = 'Запуск...';
+
+            setTimeout(function() {
+                var passed = 0, failed = 0;
+                for (var i = 0; i < TESTS.length; i++) {
+                    var ok = runTest(TESTS[i]);
+                    var div = document.createElement('div');
+                    div.className = 'test ' + (ok ? 'pass' : 'fail');
+                    div.textContent = (ok ? '✓ ' : '✗ ') + TESTS[i].name;
+                    resultsDiv.appendChild(div);
+                    ok ? passed++ : failed++;
+                }
+                summaryDiv.innerHTML = 'Готово. Пройдено: ' + passed + ', Провалено: ' + failed + ', Всего: ' + TESTS.length;
+                btn.disabled = false;
+            }, 150);
+        }
+    </script>
+</body>
+</html>

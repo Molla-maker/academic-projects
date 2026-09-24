@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ доставки</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Заказ доставки</h1>
+        <form id="deliveryForm">
+            <div class="form-group">
+                <label for="address">Адрес доставки:</label>
+                <input type="text" id="address" name="address" placeholder="Улица, дом, квартира">
+            </div>
+            <div class="form-group">
+                <label for="time">Время доставки:</label>
+                <input type="text" id="time" name="time" placeholder="ЧЧ:ММ (например, 14:30)">
+            </div>
+            <div class="form-group">
+                <label for="goods">Товары:</label>
+                <input type="text" id="goods" name="goods" placeholder="Товар1, Товар2, Товар3">
+            </div>
+            <div class="form-group">
+                <label for="sum">Сумма заказа (руб.):</label>
+                <input type="text" id="sum" name="sum" placeholder="Целое число от 100 до 100000">
+            </div>
+            <div class="form-group">
+                <label for="comment">Комментарий:</label>
+                <textarea id="comment" name="comment" rows="3" placeholder="Дополнительные пожелания (необязательно)"></textarea>
+            </div>
+            <div class="button-group">
+                <button type="submit" id="okButton">Ок</button>
+                <button type="button" id="cancelButton">Отмена</button>
+            </div>
+        </form>
+        <div id="message" class="message"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
