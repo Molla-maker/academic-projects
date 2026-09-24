@@ -14,5 +14,6 @@
 | [projects-gallery-Molla-maker](projects-gallery-Molla-maker) | Веб-галерея 3D-моделей (Express, SQLite, Three.js) |
 | [Курсовая работа](Курсовая%20работа) | Сборка механизма (кривошип, шатун, ползун) и презентация |
 | [HelloNRX](HelloNRX.md) | Заготовка плагина NRX для nanoCAD / AutoCAD |
+| [nanocad-labs](nanocad-labs) | Лабораторные nanoCAD: решение NCadSDK и проект HelloNRX |
 
 Исходники MFC-проектов открываются в Visual Studio (файлы `.sln`). Веб-проект запускается через Node.js.
