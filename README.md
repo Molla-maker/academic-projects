@@ -16,5 +16,6 @@
 | [HelloNRX](HelloNRX.md) | Заготовка плагина NRX для nanoCAD / AutoCAD |
 | [nanocad-labs](nanocad-labs) | Лабораторные nanoCAD: решение NCadSDK и проект HelloNRX |
 | [Детмаш](Детмаш) | Детали машин: вал, муфта, подшипники (КОМПАС) и кинематика (Mathcad) |
+| [my-vue-app](my-vue-app) | Тест по физике на Vue 3 + Vite |
 
 Исходники MFC-проектов открываются в Visual Studio (файлы `.sln`). Веб-проект запускается через Node.js.

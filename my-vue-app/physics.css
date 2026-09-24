@@ -1,0 +1,155 @@
+/* Подключение шрифта Gilroy */
+@font-face {
+    font-family: 'Gilroy';
+    src: url('/fonts/Gilroy-Regular.woff') format('woff');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('/fonts/Gilroy-SemiBold.woff') format('woff');
+    font-weight: 600;
+}
+
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gilroy', sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Растягиваем тест на весь экран */
+body {
+    background: #222; /* Тёмный фон */
+    color: white; /* Белый текст */
+    height: 100vh; /* Полная высота экрана */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Контейнер теста */
+.quiz-container {
+    width: 90%;
+    max-width: 800px;
+    height: 80vh;
+    background: #333; /* Тёмно-серый фон */
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+/* Номера вопросов */
+.numbers {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.numbers span {
+    display: inline-block;
+    padding: 10px 14px;
+    background: #444;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.numbers .active {
+    background: #7a9efc;
+    color: white;
+}
+
+.numbers .answered {
+    background: #555;
+    color: white;
+}
+
+/* Вопрос */
+h2 {
+    font-weight: 600;
+    line-height: 40px;
+    font-size: 22px;
+}
+
+/* Варианты ответов */
+.option {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: #444;
+    color: white;
+    margin: 8px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    border: 1px solid #555;
+    transition: background 0.3s;
+}
+
+.option:hover {
+    background: #555;
+}
+
+.option input {
+    margin-right: 10px;
+}
+
+/* Цвета для проверки ответа */
+.option.correct {
+    background: #4caf50 !important; /* Зелёный цвет */
+}
+
+.option.wrong {
+    background: #f44336 !important; /* Красный цвет */
+}
+
+/* Кнопки */
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+button {
+    padding: 14px 28px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    background: #7a9efc;
+    color: white;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #5a7bdc;
+}
+
+.back {
+    background: #777;
+}
+
+.back:hover {
+    background: #666;
+}
+
+/* Блок с результатом */
+#result {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+}
