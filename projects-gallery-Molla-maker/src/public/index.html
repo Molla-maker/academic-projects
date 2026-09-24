@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Models Gallery</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>3D Model Gallery</h1>
+      <div id="auth-buttons">
+        <button id="login-btn" class="hidden">Login</button>
+        <button id="register-btn" class="hidden">Sign Up</button>
+        <button id="logout-btn" class="hidden">Logout</button>
+        <button id="upload-btn" class="hidden">Upload Model</button>
+      </div>
+    </header>
+
+    <div id="auth-forms" class="hidden">
+      <div id="login-form" class="auth-form">
+        <h2>Login</h2>
+        <form id="login-form-element">
+          <div class="form-group">
+            <label for="login-username">Username:</label>
+            <input type="text" id="login-username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" name="password" required>
+          </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+
+      <div id="register-form" class="auth-form">
+        <h2>Sign Up</h2>
+        <form id="register-form-element">
+          <div class="form-group">
+            <label for="register-username">Username:</label>
+            <input type="text" id="register-username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="register-password">Password:</label>
+            <input type="password" id="register-password" name="password" required>
+          </div>
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+
+    <main>
+      <div id="models-container"></div>
+      <div id="pagination">
+        <button id="prev-page" disabled>Previous</button>
+        <span id="page-info">Page 1</span>
+        <button id="next-page">Next</button>
+      </div>
+    </main>
+  </div>
+
+  <div id="viewer"></div>
+  
+  <div class="controls">
+    <input type="color" id="model-color" value="#ffffff">
+    <label>
+      <input type="checkbox" id="ambient-light" checked> Ambient Light
+    </label>
+    <label>
+      <input type="checkbox" id="directional-light" checked> Directional Light
+    </label>
+    <label>
+      <input type="checkbox" id="point-light" checked> Point Light
+    </label>
+  </div>
+
+  <script type="module" src="/script.js"></script>
+</body>
+</html> 

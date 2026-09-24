@@ -1,0 +1,50 @@
+### Корректный GET запрос к корневому пути
+GET http://localhost:3000/
+Accept: text/plain
+
+### Некорректный GET запрос к несуществующему пути
+GET http://localhost:3000/nonexistent
+Accept: text/plain
+
+### Корректный GET запрос к /comments
+GET http://localhost:3000/comments
+Accept: application/json
+
+### Корректный POST запрос к /comments
+POST http://localhost:3000/comments
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "John Doe",
+    "comment": "This is a test comment"
+}
+
+### Некорректный POST запрос к /comments (отсутствует поле name)
+POST http://localhost:3000/comments
+Content-Type: application/json
+Accept: application/json
+
+{
+    "comment": "This is a test comment"
+}
+
+### Некорректный POST запрос к /comments (отсутствует поле comment)
+POST http://localhost:3000/comments
+Content-Type: application/json
+Accept: application/json
+
+{
+    "name": "John Doe"
+}
+
+### Корректный GET запрос к /stats
+GET http://localhost:3000/stats
+Accept: text/html
+
+### Некорректный POST запрос с неправильным Content-Type
+POST http://localhost:3000/comments
+Content-Type: text/plain
+Accept: application/json
+
+This is not a JSON 

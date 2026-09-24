@@ -1,0 +1,32 @@
+# Visual Studio
+.vs/
+**/x64/
+**/Debug/
+**/Release/
+**/*.user
+**/*.aps
+**/*.suo
+**/*.obj
+**/*.pdb
+**/*.ilk
+**/*.exe
+**/*.dll
+**/*.ipch
+**/*.tlog
+**/*.log
+**/bin/
+**/obj/
+
+# Node
+**/node_modules/
+
+# Vendored Three.js clone (very large; install separately if needed)
+projects-gallery-Molla-maker/three.js/
+
+# Local databases and uploads
+**/*.sqlite
+**/uploads/
+
+# OS
+Thumbs.db
+desktop.ini

@@ -1,0 +1,33 @@
+# GET запрос для получения всех комментариев
+GET http://127.0.0.1:3000/comments HTTP/1.1
+Host: 127.0.0.1:3000
+
+###
+
+# POST запрос для добавления нового комментария
+POST http://127.0.0.1:3000/comments HTTP/1.1
+Host: 127.0.0.1:3000
+Content-Type: application/json
+
+{
+  "name": "Alice",
+  "comment": "This is a great server!"
+}
+
+###
+
+POST http://127.0.0.1:3000/comments HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+  "name": "Иван",
+  "comment": "Это мой первый комментарий!"
+}
+
+
+###
+
+# GET запрос для получения статистики
+GET http://127.0.0.1:3000/stats HTTP/1.1
+Host: 127.0.0.1:3000
