@@ -30,3 +30,6 @@ projects-gallery-Molla-maker/three.js/
 # OS
 Thumbs.db
 desktop.ini
+
+# KOMPAS / CAD autosave backups
+**/*.bak
